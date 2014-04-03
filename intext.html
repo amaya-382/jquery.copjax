@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>copjax</title>
+    <script src="./jquery-1.11.0.js"></script>
+    <script src="./jquery.copjax.js"></script>
+    <script>
+    $(function() {
+        $("a").copjax({
+            area: "#container"
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div>
+        <a href="./a.html">a</a>
+        <a href="./b.html">b</a>
+    </div>
+
+    <div id="container">
+        <p>test</p>
+    </div>
+</body>
+
+</html>
