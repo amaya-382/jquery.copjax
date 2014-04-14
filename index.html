@@ -8,18 +8,18 @@
     <script src="./jquery.copjax.js"></script>
     <script src="./jquery.pjax-d.js"></script>
     <script>
-    // $(function() {
-    //     $("a").copjax({
-    //         area: "#container",
-    //         inAnimation: "slideUp"
-    //     });
-    // });
     $(function() {
-        $(document).pjax("a", {
-            container: "#container",
-            fragment: "#container"
+        $("a[href]").copjax({
+            area: "#container",
+            inAnimation: "slideUp"
         });
     });
+    // $(function() {
+        // $(document).pjax("a", {
+            // container: "#container",
+            // fragment: "#container"
+        // });
+    // });
     </script>
 </head>
 
