@@ -22,10 +22,10 @@ jquery1.5↑ / Chrome,FireFox,Safari,IE8↑
 ### area: string
 ajaxで入れ替えを行う範囲を指定するセレクタ
 
-### inAnimation: string / function(target)
+### [inAnimation: string / function(target)]
 fade(default), slide / 表示するオブジェクトを引数とする関数
 
-### outAnimation: string / function(target)
+### [outAnimation: string / function(target)]
 fade(default), slide / 非表示にするオブジェクトを引数とする関数
 
 
