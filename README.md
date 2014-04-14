@@ -5,16 +5,17 @@ Client-side only な jquery-pjax プラグイン
 
 jquery1.5↑ / Chrome,FireFox,Safari,IE8↑
 
+
+## Usage
+
+リンク, 又はそれを含む要素を指定します.
+
 ```javascript
     $("a[href]").copjax({
         area: "#container",
         inAnimation: "slideUp"
     });
 ```
-
-リンクのjqueryオブジェクト, 又はそれを含むオブジェクトを指定.
-
-## Usage
 
 ### area: string
 ajaxで入れ替えを行う範囲を指定するセレクタ
