@@ -3,7 +3,9 @@ jquery.copjax
 
 Client-side only な jquery-pjax プラグイン
 
-```javscript
+jquery1.5↑ / Chrome,FireFox,Safari,IE8↑
+
+```javascript
     $("a[href]").copjax({
         area: "#container",
         inAnimation: "slideUp"
@@ -12,20 +14,17 @@ Client-side only な jquery-pjax プラグイン
 
 リンクのjqueryオブジェクト, 又はそれを含むオブジェクトを指定.
 
-area: string
-----
-セレクタ
+## Usage
 
-inAnimation: string, function(html)
------------
+### area: string
+ajaxで入れ替えを行う範囲を指定するセレクタ
+
+### inAnimation: string / function(html)
 fade(default), slideUp, slideDown
 
-outAnimation: string, function(html)
-------------
+### outAnimation: string / function(html)
 fade(default), slideUp, slideDown
 
 
 
-jquery1.5↑
 
-Chrome,FireFox,Safari,IE8↑
