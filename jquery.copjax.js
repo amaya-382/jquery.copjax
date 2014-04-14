@@ -20,19 +20,16 @@
 
         var hideTarget = function() {
             var deferred = $.Deferred();
-            var inAnimation = settings["inAnimation"];
-            if ($.isFunction(inAnimation))
-                inAnimation(target);
+            var outAnimation = settings["outAnimation"];
+            if ($.isFunction(outAnimation))
+                outAnimation(target);
             else
-                switch (inAnimation) {
+                switch (outAnimation) {
                     case "fade":
-                        target.fadeOut();
+                        target.fadeOut("slow");
                         break;
-                    case "slideDown":
-                        target.slideDown();
-                        break;
-                    case "slideUp":
-                        target.slideUp();
+                    case "slide":
+                        target.slideUp("slow");
                         break;
                     default:
                         target.hide();
@@ -44,19 +41,16 @@
         var showNewTarget = function(newTarget) {
             newTarget.hide();
             target.replaceWith(newTarget);
-            var outAnimation = settings["outAnimation"];
-            if ($.isFunction(outAnimation))
-                outAnimation(newTarget);
+            var inAnimation = settings["inAnimation"];
+            if ($.isFunction(inAnimation))
+                inAnimation(newTarget);
             else
-                switch (outAnimation) {
+                switch (inAnimation) {
                     case "fade":
-                        newTarget.fadeIn();
+                        newTarget.fadeIn("slow");
                         break;
-                    case "slideDown":
-                        newTarget.slideDown();
-                        break;
-                    case "slideUp":
-                        newTarget.slideUp();
+                    case "slide":
+                        newTarget.slideDown("slow");
                         break;
                     default:
                         newTarget.show();

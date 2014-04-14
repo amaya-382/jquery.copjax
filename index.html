@@ -6,20 +6,15 @@
     <title>copjax</title>
     <script src="./jquery-1.11.0.js"></script>
     <script src="./jquery.copjax.js"></script>
-    <script src="./jquery.pjax-d.js"></script>
     <script>
     $(function() {
         $("a[href]").copjax({
             area: "#container",
-            inAnimation: "slideUp"
+            inAnimation: function(target) {
+                target.slideDown();
+            }
         });
     });
-    // $(function() {
-        // $(document).pjax("a", {
-            // container: "#container",
-            // fragment: "#container"
-        // });
-    // });
     </script>
 </head>
 
