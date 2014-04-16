@@ -83,13 +83,8 @@
             $(window).on("popstate", function(e) {
                 if (e.originalEvent.state) {
                     transition(location.pathname);
-                    return true;
                 }
             });
-            location.reload = function() {
-                transition(location.href);
-                return false;
-            };
         } else {
             $(window).on("hashchange", function() {
                 var hash = location.hash;
