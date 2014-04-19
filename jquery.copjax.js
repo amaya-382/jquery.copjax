@@ -1,24 +1,33 @@
 ;
 (function($) {
     $.fn.copjax = function(options) {
-        var enable = !! (window.history && window.history.pushState);
-        var settings = {};
-        var target = "";
+        var available = !! (window.history && window.history.pushState);
+        var wrappedHtml = null;
+
+        // init settings
+        var settings = $.extend({
+            event: "click",
+            area: "body",
+            inAnimation: "fade",
+            outAnimation: "fade",
+            executeScripts: false,
+            processingObjectClass: "target"
+        }, options);
 
         var getNewHtml = function(url) {
             var deferred = $.Deferred();
             $.ajax({
                 url: url
-            }).then(function(newHtml) {
-                deferred.resolve(newHtml);
+            }).then(function(obtainedHtml) {
+                deferred.resolve(obtainedHtml);
             }, function(error) {
-                console.log("ajax通信に失敗しました");
+                console.log("failed in ajax");
                 deferred.reject(error);
             });
             return deferred.promise();
         };
 
-        var hideTarget = function() {
+        var hideTarget = function(target) {
             var deferred = $.Deferred();
             var outAnimation = settings["outAnimation"];
             if ($.isFunction(outAnimation))
@@ -38,54 +47,72 @@
             return deferred.resolve().promise();
         };
 
-        var showNewTarget = function(newTarget) {
-            newTarget.hide();
-            target.replaceWith(newTarget);
+        var showTarget = function(target) {
+            target.hide();
             var inAnimation = settings["inAnimation"];
             if ($.isFunction(inAnimation))
-                inAnimation(newTarget);
+                inAnimation(target);
             else
                 switch (inAnimation) {
                     case "fade":
-                        newTarget.fadeIn("slow");
+                        target.fadeIn("slow");
                         break;
                     case "slide":
-                        newTarget.slideDown("slow");
+                        target.slideDown("slow");
                         break;
                     default:
-                        newTarget.show();
+                        target.show();
                         break;
                 }
         };
 
-        // 遷移処理
-        // 新要素取得 // 入れ替え要素非表示
-        // => 新要素表示
+        // CORE FUNCTION
+        // get the new //parallelism// hide the old
+        // => replace and show the new, execute scripts, call back
         var transition = function(url) {
-            target = $(settings["area"]);
+            var oldTarget = $(settings["area"]);
             $.when(getNewHtml(url),
-                hideTarget())
-                .then(function(newHtml) {
-                        var newTargets = $("<div/>").html(newHtml).find(settings["area"]);
-                        if (newTargets[0]) showNewTarget($(newTargets[0]));
-                        else target.show();
+                hideTarget(oldTarget))
+                .then(function(obtainedHtml) {
+                        // replace and show
+                        wrappedHtml = $("<div/>").html(obtainedHtml);
+                        var newTargets = wrappedHtml.find(settings["area"]);
+                        if (newTargets[0]) {
+                            var newTarget = $(newTargets[0]);
+                            oldTarget.replaceWith(newTarget);
+                            showTarget(newTarget);
+                        } else oldTarget.show();
+
+                        // script
+                        if ($.isFunction(settings["executeScripts"])) {
+                            if (settings["executeScripts"](wrappedHtml.html()))
+                                $("body").append(wrappedHtml.find("script." + settings["processingObjectClass"]));
+                        } else if (settings["executeScripts"]) {
+                            $("body").append(wrappedHtml.find("script." + settings["processingObjectClass"]));
+                        }
+
+                        // callback
+                        if ("callback" in settings) settings["callback"](wrappedHtml.html());
                     },
                     function(error) {
-                        target.show();
+                        oldTarget.show();
                         console.log("failed:\n" + error);
                     });
         };
 
         // popstate or hashchange
-        if (enable) {
-            // 初期ページをpush
+        if (available) {
+            // initial push
             history.pushState(location.pathname, "", location.pathname);
+
+            // popstate
             $(window).on("popstate", function(e) {
                 if (e.originalEvent.state) {
                     transition(location.pathname);
                 }
             });
         } else {
+            // hashchange
             $(window).on("hashchange", function() {
                 var hash = location.hash;
                 transition(location.hash.replace("#", ""));
@@ -93,17 +120,18 @@
             });
         }
 
-        // click
-        this.click(function(e) {
-            settings = $.extend({
-                area: "body",
-                inAnimation: "fade",
-                outAnimation: "fade"
-            }, options);
+        // bind event
+        this.on(settings["event"], function() {
+            //transition
             var targetUrl = $(this).attr("href");
             transition(targetUrl);
-            if (enable) history.pushState(targetUrl, "", targetUrl);
+
+            //change state
+            if (available) history.pushState(targetUrl, "", targetUrl);
             else location.hash = targetUrl;
+
+            //reset
+            wrappedHtml = null;
             return false;
         });
     };
