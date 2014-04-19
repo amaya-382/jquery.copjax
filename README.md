@@ -3,12 +3,12 @@ jquery.copjax
 
 Client-side only な jquery-pjax プラグイン
 
-jquery1.5↑ / Chrome,FireFox,Safari,IE8↑
+jquery1.5↑ / Chrome, FireFox, Safari, IE8↑
 
 
 ## Usage
 
-イベントの発火点となるリンクを指定します. href属性を持っている必要あり.
+イベントの発火点となるリンクを指定します. **href属性を持っている必要あり.**
 
 ```javascript
     $("a[href]").copjax({
