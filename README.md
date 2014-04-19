@@ -50,7 +50,7 @@ false(default), true / function(newTarget){ return newTarget.find("p")[0]; },…
 
 #### [processingObjectClass: string]
 ajaxで得られた要素内のscriptのうち, 実行対象が持っていなければならないクラス名.
-executeScriptsが真である必要あり.
+executeScriptsが真である必要あり. **jquery.copjax.jsを読み込む箇所や$.copjax()で初期設定を行う箇所を読み込まないこと**
 
 target(default),…
 
