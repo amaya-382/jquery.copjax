@@ -8,7 +8,7 @@ jquery1.5↑ / Chrome,FireFox,Safari,IE8↑
 
 ## Usage
 
-リンク, 又はそれを含む要素を指定します.
+イベントの発火点となるリンクを指定します. href属性を持っている必要あり.
 
 ```javascript
     $("a[href]").copjax({
@@ -22,7 +22,7 @@ jquery1.5↑ / Chrome,FireFox,Safari,IE8↑
 * 要素入れ替え時のアニメーションを変更したい場合はinAnimation, outAnimationを調整する
 * click以外のイベントで使いたい場合はeventTypeを調整する
 * ajaxで取得する要素内のscriptを実行したい場合はexecuteScriptsを調整しつつ, **実行したいscriptにtarget(processingObjectClass)というクラスを追加** しておく
-* callbackを設定したい場合はcallbackに設定する.
+* callback関数を使いたい場合はcallbackに設定する
 
 
 ### area: string
