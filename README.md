@@ -49,8 +49,8 @@ ajaxで得られた要素内のscriptを実行するかどうか / ajaxで得ら
 false(default), true / function(newTarget){ return newTarget.find("p")[0]; },…
 
 #### [processingObjectClass: string]
-ajaxで得られた要素内のscriptのうち, 実行対象が持っていなければならないクラス名.
-executeScriptsが真である必要あり. **jquery.copjax.jsを読み込む箇所や$.copjax()で初期設定を行う箇所を読み込まないこと**
+ajaxで得られた要素内のscriptのうち, 実行したいscriptにセットしておかなかればならないクラス名. クラス名の衝突などがなければこの変数は既定値を使うこと.
+executeScriptsが真にならない場合はこの変数は意味を持たない. **jquery.copjax.jsを読み込む箇所や$.copjax()で初期設定を行う箇所を読み込まないこと**
 
 target(default),…
 
