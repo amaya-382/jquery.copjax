@@ -6,7 +6,7 @@
 
         // init settings
         var settings = $.extend({
-            event: "click",
+            eventType: "click",
             area: "body",
             inAnimation: "fade",
             outAnimation: "fade",
@@ -121,7 +121,7 @@
         }
 
         // bind event
-        this.on(settings["event"], function() {
+        this.on(settings["eventType"], function() {
             //transition
             var targetUrl = $(this).attr("href");
             transition(targetUrl);
