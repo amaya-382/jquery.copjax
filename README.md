@@ -20,8 +20,9 @@ jquery1.5↑ / Chrome, FireFox, Safari, IE8↑
 
 * 要素入れ替え時のアニメーションを変更したい場合はinAnimation, outAnimationを調整する
 * click以外のイベントで使いたい場合はeventTypeを調整する
-* ajaxで取得する要素内のscriptを実行したい場合はexecuteScriptsを調整しつつ, **実行したいscriptにtarget(processingObjectClass)というクラスを追加** しておく
+* ajaxで取得する要素内の*area外script*を実行したい場合はexecuteScriptsを調整しつつ, **実行したいscriptにtarget(processingObjectClass)というクラスを追加** しておく. area範囲内であれば実行される.
 * callback関数を使いたい場合はcallbackに設定する
+* pjax登録が再帰的に発生しないようにすること
 
 
 #### area: string
